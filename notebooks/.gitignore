@@ -1,0 +1,6 @@
+data/raw/
+data/interim/
+data/processed/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
