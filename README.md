@@ -1,100 +1,170 @@
-<<<<<<< HEAD
-Eye-Tracking Data Analysis Pipeline (Visual World Paradigm)
+# Eye-Tracking Data Analysis in Python
 
-A reproducible, professional Python pipeline for processing, transforming, and visualizing high-frequency eye-tracking data using the Visual World Paradigm (VWP). This project investigates real-time language comprehension, focusing on how listeners resolve pronoun referents across different word-order conditions.
+### A Python-based data processing and visualization pipeline for high-frequency eye-tracking data
 
-📌 Project Overview & Research Question
+This project implements a multi-stage Python workflow for processing, transforming, aggregating, and visualizing experimental eye-tracking data collected using the **Visual World Paradigm (VWP)**.
 
-In psycholinguistics, the Visual World Paradigm allows researchers to track real-time spoken language comprehension by monitoring eye movements as participants view a visual scene.
+The pipeline processes approximately **200 MB of raw experimental data across 16 Excel files**, integrating gaze coordinates, timestamps, participant and trial information, and experimental conditions to investigate real-time language comprehension.
 
-Research Question: How do word-order constraints (SVO vs. OVS) and pronoun types modulate real-time referential resolution (Subject vs. Object gaze allocation) following pronoun onset?
-Core Metric: Log-ratio of Subject-to-Object gaze proportions, calculated over 20 ms time bins to capture granular temporal dynamics.
-📊 Dataset
-
-Raw Data: 16 raw Excel files (~200 MB total) capturing continuous gaze coordinates (GazePointX, GazePointY), timestamps, trial details, and experimental conditions.
-Note on Accessibility: Raw, interim, and processed data directories are excluded from this public repository via .gitignore to adhere to data privacy standards. The pipeline scripts are structured to process local datasets seamlessly.
-⚙️ Analysis Workflow & Pipeline Structure
-
-The analysis is organized into a modular, multi-step Jupyter Notebook workflow:
-
-Data Ingestion & Cleaning (Notebook 01): Batch-loading raw Excel files, handling missing coordinates, and filtering fixations.
-Preprocessing & Binning (Notebookes 02–04): Standardizing timestamps, applying consistent 20 ms flooring bins, and aligning trials to the experimental timeline.
-Log-Ratio Transformation (Notebook 05): Computing gaze proportions for Subject and Object antecedents, handling zero-gaze edge cases, and calculating log-ratios.
-Statistical Visualization & Plotting (Notebook 06): Generating publication-grade multi-facet line plots with 95% confidence intervals and pronoun-onset annotations.
-📈 Key Findings & Visualization
-
-Figure 1. Time course of the log ratio of gaze proportions to the subject and object antecedents following target pronoun onset, by pronoun type and word order condition (SVO and OVS). Positive values indicate a higher subject-to-object gaze proportion, whereas negative values indicate a higher object-to-subject gaze proportion. Solid lines represent participant means, and shaded bands indicate 95% confidence intervals.
-
-Pronoun Onset Marker: Highlighted at the 1000 ms mark to distinguish baseline viewing behavior from post-onset disambiguation.
-Word-Order Modulation: Reveals clear differences in real-time looks between SVO and OVS structures, visualized via Seaborn’s relplot facet grid.
-🧰 Tech Stack & Tools
-
-Language: Python 3.x
-Data Manipulation: pandas, numpy
-Data Visualization: seaborn, matplotlib
-Environment: JupyterLab, Anaconda
-🚀 How to Run the Project
-
-To set up the environment and run the notebooks locally, follow these steps:
-
-1. Clone the repository
-
-git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-cd your-repo-name
-=======
-# Eye-Tracking Data Analysis Pipeline (Visual World Paradigm)
-
-A reproducible, professional Python pipeline for processing, transforming, and visualizing high-frequency eye-tracking data using the **Visual World Paradigm (VWP)**. This project investigates real-time language comprehension, focusing on how listeners resolve pronoun referents across different word-order conditions.
+The project demonstrates practical skills in **data preprocessing, quality control, temporal data alignment, feature engineering, statistical analysis, and reproducible analytical workflows**.
 
 ---
 
-## 📌 Project Overview & Research Question
-In psycholinguistics, the Visual World Paradigm allows researchers to track real-time spoken language comprehension by monitoring eye movements as participants view a visual scene. 
+## 1. Research Objective
 
-* **Research Question:** How do word-order constraints (**SVO** vs. **OVS**) and pronoun types modulate real-time referential resolution (Subject vs. Object gaze allocation) following pronoun onset?
-* **Core Metric:** Log-ratio of Subject-to-Object gaze proportions, calculated over **20 ms time bins** to capture granular temporal dynamics.
+The Visual World Paradigm is an experimental method used in psycholinguistics to investigate how listeners interpret spoken language by tracking their eye movements toward objects or referents in a visual scene.
 
----
+**Research question:**
 
-## 📊 Dataset
-* **Raw Data:** 16 raw Excel files (~200 MB total) capturing continuous gaze coordinates (`GazePointX`, `GazePointY`), timestamps, trial details, and experimental conditions.
-* **Note on Accessibility:** Raw, interim, and processed data directories are excluded from this public repository via `.gitignore` to adhere to data privacy standards. The pipeline scripts are structured to process local datasets seamlessly.
+How do word order (SVO vs. OVS) and pronoun type influence real-time referential resolution, as reflected in gaze allocation toward subject and object antecedents?
 
----
+**Primary analytical measure:**
 
-## ⚙️ Analysis Workflow & Pipeline Structure
-The analysis is organized into a modular, multi-step Jupyter Notebook workflow:
+Log-ratio of gaze proportions toward subject and object antecedents, calculated across 20-ms time bins.
 
-1. **Data Ingestion & Cleaning (Notebook 01):** Batch-loading raw Excel files, handling missing coordinates, and filtering fixations.
-2. **Preprocessing & Binning (Notebookes 02–04):** Standardizing timestamps, applying consistent **20 ms flooring bins**, and aligning trials to the experimental timeline.
-3. **Log-Ratio Transformation (Notebook 05):** Computing gaze proportions for Subject and Object antecedents, handling zero-gaze edge cases, and calculating log-ratios.
-4. **Statistical Visualization & Plotting (Notebook 06):** Generating publication-grade multi-facet line plots with **95% confidence intervals** and pronoun-onset annotations.
+Positive log-ratio values indicate relatively more looks toward the subject antecedent; negative values indicate relatively more looks toward the object antecedent.
 
 ---
 
-## 📈 Key Findings & Visualization
+## 2. Dataset
 
-> **Figure 1.** Time course of the log ratio of gaze proportions to the subject and object antecedents following target pronoun onset, by pronoun type and word order condition (SVO and OVS). Positive values indicate a higher subject-to-object gaze proportion, whereas negative values indicate a higher object-to-subject gaze proportion. Solid lines represent participant means, and shaded bands indicate 95% confidence intervals.
+The original dataset consists of:
 
-* **Pronoun Onset Marker:** Highlighted at the **1000 ms** mark to distinguish baseline viewing behavior from post-onset disambiguation.
-* **Word-Order Modulation:** Reveals clear differences in real-time looks between SVO and OVS structures, visualized via Seaborn’s `relplot` facet grid.
+- **16 Excel files**, totaling approximately **200 MB**
+- High-frequency eye-tracking observations
+- Gaze coordinates (`GazePointX`, `GazePointY`)
+- Timestamps and trial information
+- Participant identifiers and experimental conditions
+- Subject and object areas of interest (AOIs)
+
+### Data Availability
+
+The original experimental datasets are not included in this public repository. Raw, intermediate, and processed research data are excluded to protect participant information and comply with applicable data-sharing restrictions.
+
+The notebooks and generated visualizations are publicly available for code review.
+
+A representative sample dataset may be provided upon request, subject to applicable data-sharing permissions.
+
+**Reproducibility limitation:** Running the complete pipeline requires access to data with the expected input structure.
 
 ---
 
-## 🧰 Tech Stack & Tools
-* **Language:** Python 3.x
-* **Data Manipulation:** `pandas`, `numpy`
-* **Data Visualization:** `seaborn`, `matplotlib`
-* **Environment:** JupyterLab, Anaconda
+## 3. Data Processing and Analysis Pipeline
+
+The analysis is organized into six sequential Jupyter notebooks.
+
+| Stage | Description |
+|---|---|
+| **01 — Data Import and Cleaning** | Batch import of Excel files, initial data inspection, missing-value handling, and quality control |
+| **02–04 — Data Transformation** | Timestamp standardization, trial alignment, temporal binning, and preparation of analysis-ready data |
+| **05 — Statistical Transformation** | Calculation of subject/object gaze proportions and log-ratio measures, including handling of zero-gaze cases |
+| **06 — Visualization** | Visualization of gaze time courses across word-order and pronoun conditions, with confidence intervals |
+
+### Key Processing Steps
+
+**Data ingestion and validation**
+
+Raw experimental files are imported and combined into a structured analytical dataset. The workflow includes inspecting variable types, handling missing gaze coordinates, and preparing the observations for subsequent transformations.
+
+**Temporal alignment and aggregation**
+
+Eye-tracking observations are aligned to the experimental timeline and aggregated into **20-ms intervals**, enabling comparisons of gaze behavior across participants and experimental conditions.
+
+**Statistical transformation**
+
+Gaze allocation toward subject and object antecedents is summarized using log-ratio transformations to characterize relative viewing preferences over time.
+
+**Visualization**
+
+Time-course plots are generated using `matplotlib` and `seaborn`, allowing visual comparison of gaze patterns across word-order conditions and pronoun types.
 
 ---
 
-## 🚀 How to Run the Project
+## 4. Visualization and Results
 
-To set up the environment and run the notebooks locally, follow these steps:
+The analysis produces time-course visualizations of subject-versus-object gaze preferences across experimental conditions.
 
-### 1. Clone the repository
+**Figure 1.** Time course of the log-ratio of gaze proportions toward subject and object antecedents, grouped by pronoun type and word order (SVO and OVS).
+
+Positive values indicate a relative preference for the subject antecedent, while negative values indicate a relative preference for the object antecedent. Lines represent aggregated gaze patterns, with shaded regions indicating 95% confidence intervals.
+
+The visualization includes a pronoun-onset reference marker at **1,000 ms**.
+
+The plots support exploratory comparisons of gaze allocation before and after pronoun onset and across experimental conditions.
+
+---
+
+## 5. Technologies and Tools
+
+| Category | Technologies |
+|---|---|
+| Programming | Python |
+| Data manipulation | pandas, NumPy |
+| Data visualization | Matplotlib, Seaborn |
+| Excel file processing | openpyxl |
+| Development environment | Jupyter notebooks, VS Code / JupyterLab |
+| Version control | Git, GitHub |
+
+---
+
+## 6. Installation and Usage
+
+### Clone the repository
+
 ```bash
-git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-cd your-repo-name
->>>>>>> 60ede5f (Update notebook: remove unnecessary text)
+git clone https://github.com/abadato/Eye-Tracking-Data-Analysis-in-Python.git
+cd Eye-Tracking-Data-Analysis-in-Python
+```
+
+### Create a virtual environment
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+For Windows, use the appropriate virtual environment activation command.
+
+### Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+The project dependencies are listed in `requirements.txt`.
+
+To execute the notebooks interactively, use a Jupyter environment such as JupyterLab or VS Code with the Jupyter extension.
+
+### Run the analysis
+
+Open the `notebooks/` directory and execute the numbered notebooks sequentially, beginning with Notebook 01.
+
+**Note:** The original datasets are not included. Before executing the pipeline, the required input files must be placed in the expected local directories, and their paths must match the notebook configuration.
+
+---
+
+## 7. Project Scope and Limitations
+
+This repository presents a research-oriented data analysis workflow developed for experimental eye-tracking data.
+
+The current implementation demonstrates:
+
+- Processing of multiple experimental data files
+- Cleaning and transformation of high-frequency observational data
+- Temporal alignment and aggregation
+- Calculation of derived analytical measures
+- Visualization of time-dependent experimental outcomes
+
+The pipeline was developed for a specific experimental dataset. Applying it to new datasets may require adjustments to input schemas, metadata, and file paths.
+
+Because the original research data is not publicly distributed, the complete analysis cannot currently be reproduced using only the repository contents.
+
+---
+
+## 8. Author
+
+**Dato Abashidze, PhD**
+
+Researcher in psycholinguistics and experimental data analysis, with experience in quantitative research, statistical modeling, and Python-based data processing.
+
+GitHub: https://github.com/abadato
